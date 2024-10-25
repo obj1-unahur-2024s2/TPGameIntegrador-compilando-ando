@@ -1,0 +1,12 @@
+///////// PROGRAM /////////
+import juego.*
+program juego {
+	game.title("Pong")
+	game.height(25)
+	game.width(25)
+	game.cellSize(30)
+	game.boardGround("fondoNegro.png")
+	pong.mostrarMenu()
+	menu.iniciar()
+	game.start()
+}
