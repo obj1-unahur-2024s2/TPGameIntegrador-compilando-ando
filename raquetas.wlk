@@ -22,9 +22,9 @@ class Raqueta {
 }
 
 object raquetaBot {
-  var property velocidad = 450
+  const property velocidad = 450
   var property position = game.at(24, 14)
-  var areaColision = (0..0)
+  var areaColision = (0..5)
   method image() = "bot.png"
   method movimiento() {
     position = (game.at(position.x(), pelota.position().y()))

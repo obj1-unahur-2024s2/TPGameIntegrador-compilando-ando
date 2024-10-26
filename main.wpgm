@@ -1,11 +1,9 @@
 ///////// PROGRAM /////////
 import juego.*
+import c.*
+
 program juego {
-	game.title("Pong")
-	game.height(25)
-	game.width(25)
-	game.cellSize(30)
-	game.boardGround("fondoNegro.png")
+	gameManager.inicializar()
 	pong.mostrarMenu()
 	menu.iniciar()
 	game.start()

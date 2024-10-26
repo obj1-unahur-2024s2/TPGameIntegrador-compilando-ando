@@ -46,12 +46,13 @@ object pelota {
   method gameOver() {
     if ([-1, 25].contains(position.x())){
       
-      pong.mostrarMenu()
+      /*pong.mostrarMenu()
       game.removeVisual(self)
       game.removeVisual(raquetaJugador)
       game.removeVisual(raquetaBot)
       game.removeVisual(franja)
-	    menu.iniciar()
+	    menu.iniciar()*/
+      game.start()
     }
   }
 }
