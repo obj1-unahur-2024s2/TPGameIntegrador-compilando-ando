@@ -35,24 +35,11 @@ object pelota {
   }
   
   method movementX() {
-    if ((position.x() == 1) && raquetaJugador.areaColision().contains(position.y())) {
+    if ((position.x() == 1) && pong.jugador1().areaColision().contains(position.y())) {
       direccionX = 1
     }
-    if ((position.x() == 23) && raquetaBot.areaColision().contains(position.y())) {
+    if ((position.x() == 23) && pong.bot().areaColision().contains(position.y())) {
       direccionX = -1
-    }
-  }
-  
-  method gameOver() {
-    if ([-1, 25].contains(position.x())){
-      
-      /*pong.mostrarMenu()
-      game.removeVisual(self)
-      game.removeVisual(raquetaJugador)
-      game.removeVisual(raquetaBot)
-      game.removeVisual(franja)
-	    menu.iniciar()*/
-      game.start()
     }
   }
 }

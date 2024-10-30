@@ -1,6 +1,7 @@
 ///////// PROGRAM /////////
+import wollok.game.*
 import juego.*
-import c.*
+import gameManager.*
 
 program juego {
 	gameManager.inicializar()
