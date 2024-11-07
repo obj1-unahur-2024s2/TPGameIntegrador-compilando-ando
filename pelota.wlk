@@ -2,13 +2,12 @@ import franja.*
 import raquetas.*
 import juego.*
 
-
 object pelota {
   const numeros = [1, -1]
   var direccionX = -1
   var direccionY = -1
   var property pelotaVelocidad = 100
-  const image = "pelota.png"
+  const image = "pelota1.png"
   var property position = game.at(10, 12)
   method numeros() = numeros
   
@@ -25,7 +24,11 @@ object pelota {
   method movement() {
     self.position(position.up(direccionY).right(direccionX))
     self.movementY()
-    self.movementX()
+    if(menu.singlePlayer().estaActivo()){
+      self.movementX()
+    }
+    else self.movementXMultiplayer()
+    
   }
   
   method movementY() {
@@ -35,10 +38,18 @@ object pelota {
   }
   
   method movementX() {
-    if ((position.x() == 1) && pong.jugador1().areaColision().contains(position.y())) {
+    if ((position.x() == 1) && menu.singlePlayer().jugador1().areaColision().contains(position.y())) {
       direccionX = 1
     }
-    if ((position.x() == 23) && pong.bot().areaColision().contains(position.y())) {
+    if ((position.x() == 23) && menu.singlePlayer().bot().areaColision().contains(position.y())) {
+      direccionX = -1
+    }
+  }
+  method movementXMultiplayer() {
+    if ((position.x() == 1) && menu.multiPlayer().jugador1().areaColision().contains(position.y())) {
+      direccionX = 1
+    }
+    if ((position.x() == 23) && menu.multiPlayer().jugador2().areaColision().contains(position.y())) {
       direccionX = -1
     }
   }

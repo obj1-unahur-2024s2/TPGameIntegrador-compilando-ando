@@ -5,7 +5,7 @@ import gameManager.*
 
 program juego {
 	gameManager.inicializar()
-	pong.mostrarMenu()
 	menu.iniciar()
-	game.start()
+	keyboard.space().onPressDo({game.stop()})
+		game.start()
 }
