@@ -5,7 +5,7 @@ class Raqueta {
   var areaColision
   method configurarMovimiento()
   method area() {
-    areaColision = (position.y() - 1) .. (position.y() + 4)
+    areaColision = (position.y()-1) .. (position.y() + 4)
   }
   method areaColision() = areaColision
 }

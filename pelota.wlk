@@ -6,7 +6,7 @@ object pelota {
   const numeros = [1, -1]
   var direccionX = -1
   var direccionY = -1
-  var property pelotaVelocidad = 100
+  var pelotaVelocidad = 105
   const image = "pelota1.png"
   var property position = game.at(10, 12)
   method numeros() = numeros
@@ -14,7 +14,9 @@ object pelota {
   method image() = image
   
   method pelotaVelocidad() = pelotaVelocidad
-  
+  method aumentarVelocidad() {
+    pelotaVelocidad = pelotaVelocidad - 10
+  }
   method movimientoInicio() {
     position = game.at(10, 12)
     direccionX = numeros.anyOne()
