@@ -1,0 +1,10 @@
+import wollok.game.*
+import juego.*
+import gameManager.*
+
+program juego {
+	gameManager.inicializar()
+	menu.iniciar()
+	keyboard.space().onPressDo({game.stop()})
+		game.start()
+}
