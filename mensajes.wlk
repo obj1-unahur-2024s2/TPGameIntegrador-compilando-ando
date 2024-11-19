@@ -9,7 +9,17 @@ object ganar {
   method image() = "ganaste1.png"
   method position() = game.at(6, 13)
 }
-
+//msj GANADOR J1
+object ganarJugador1 {
+  method image() = "ganaste3.png"
+  method position() = game.at(6, 13)  
+}
+//msj GANADOR J2
+object ganarJugador2 {
+  method image() = "ganaste1.png"
+  method position() = game.at(6, 13) 
+}
+//PUNTAJE IZQUIERDO
 object puntajeJugador {
   var puntos = 0
   method puntos() = puntos
@@ -19,6 +29,7 @@ object puntajeJugador {
   method image() = puntos.toString()+".png"
   method position() = game.at(2,26)
 }
+//PUNTAJE DERECHO
 object puntajeRival {
   var puntos = 0
   method puntos() = puntos
