@@ -161,13 +161,13 @@ class JugadorContraJugador inherits ModoDeJuego {
 	}
 	override method gameOver() {
 		if(puntajeJugador.puntos() == 8){
-			game.addVisual(ganarJugador1)
 			self.borrarVisuales()
+			game.addVisual(ganarJugador1)
 			game.schedule(0,{game.stop()})
 		}
 	  	else if(puntajeRival.puntos() == 8){
-	  		game.addVisual(ganarJugador2)
-			self.borrarVisuales()
+	  		self.borrarVisuales()
+			game.addVisual(ganarJugador2)
 			game.schedule(0,{game.stop()})
 		}
 		else{}

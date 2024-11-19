@@ -12,12 +12,12 @@ object ganar {
 //msj GANADOR J1
 object ganarJugador1 {
   method image() = "ganaste3.png"
-  method position() = game.at(6, 13)  
+  method position() = game.at(0, 13)  
 }
 //msj GANADOR J2
 object ganarJugador2 {
   method image() = "ganaste2.png"
-  method position() = game.at(6, 13) 
+  method position() = game.at(5, 13) 
 }
 //PUNTAJE IZQUIERDO
 object puntajeJugador {
