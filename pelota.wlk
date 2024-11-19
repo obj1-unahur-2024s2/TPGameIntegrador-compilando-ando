@@ -52,6 +52,14 @@ object pelota {
     if (not menu.singlePlayer().obstaculos().isEmpty() and (position.x() == 12) && menu.singlePlayer().obstaculos().first().areaColision().contains(position.y())){
       direccionX = 1
     }
+    /*
+    if (not menu.singlePlayer().obstaculos().isEmpty() and (position.x() == 9 || position.x() == 12) && menu.singlePlayer().obstaculos().any({c => c.areaColision().contains(position.y())})){
+      direccionX = -1
+    }
+    if (not menu.singlePlayer().obstaculos().isEmpty() and (position.x() == 11 || position.x() == 14) && menu.singlePlayer().obstaculos().any({c => c.areaColision().contains(position.y())})){
+      direccionX = 1
+    }
+    */
     
   }
   method movementXMultiplayer() {
