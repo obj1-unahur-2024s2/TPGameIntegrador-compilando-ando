@@ -8,4 +8,14 @@ object gameManager {
     game.title("Tenis")
     game.addVisual(menu)
   }
+  method playGame(){
+       game.clear()
+    self.inicializar()
+  
+ 
+    menu.iniciar()
+	  keyboard.space().onPressDo({game.stop()})
+		game.start()
+    
+  }
 }

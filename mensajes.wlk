@@ -23,6 +23,10 @@ object ganarJugador2 {
 object puntajeJugador {
   var puntos = 0
   method puntos() = puntos
+    method puntos(punto) {
+
+    puntos = punto}
+
   method sumarPunto() {
     puntos = puntos + 1
   }

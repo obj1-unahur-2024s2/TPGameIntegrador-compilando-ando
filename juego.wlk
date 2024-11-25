@@ -1,27 +1,36 @@
+import gameManager.*
 import pelota.*
 import raquetas.*
 import franja.*
 import mensajes.*
+
+
 object menu{
 	//INSTANCIO LOS MODOS DE JUEGO
-	const property singlePlayer = new JugarContraElBot()
-	const property multiPlayer = new JugadorContraJugador()
+	var property singlePlayer= new JugarContraElBot()
+	var property multiPlayer = new JugadorContraJugador()
+	method clearGame() {
+		game.allVisuals().forEach({ visual => game.removeVisual(visual) })
+	}
 	
 	method image() = "juego_menu1.png"
 	method position() = game.at(4,5);
 	//CONFIGURA LAS TECLAS DEL MENÚ
-	method iniciar() {	  	
-		keyboard.c().onPressDo({
-			if(not singlePlayer.estaActivo() and not multiPlayer.estaActivo()){
-				singlePlayer.activar()
-				singlePlayer.play()
-			}
-		})
+	method iniciar() {	  
+			
+			keyboard.c().onPressDo({
+								singlePlayer = new JugarContraElBot()
+					singlePlayer.activar()
+					singlePlayer.play()
+				
+			})
+			
 		keyboard.x().onPressDo({
-			if(not multiPlayer.estaActivo() and not singlePlayer.estaActivo()){
+			
+				multiPlayer = new JugadorContraJugador()
 				multiPlayer.activar()
 				multiPlayer.play()
-			}
+			
 		})
 	}
 }
@@ -37,16 +46,11 @@ class ModoDeJuego {
 	var estaActivo = false 
   	method estaActivo() = estaActivo
   	method activar() {
-		estaActivo = true
+			estaActivo = !estaActivo
   	}
-	method desactivar() {
-	  estaActivo = false
-	}
+
 	//INICICIALIZA EL MOVIMIENTO DE LA PELOTA Y HABILITA LAS TECLAS DE LAS RAQUETAS
-	method init(){
-		pelota.movimientoInicio()
-		jugador1.configurarMovimiento()
-	}
+
 	//AGREGA LAS VISUALES GENERALES DEL JUEGO
 	method ponerVisuales() {
 	  	game.addVisual(franjaCentral)
@@ -92,7 +96,7 @@ class ModoDeJuego {
 	method gameOver()
 }
 class JugarContraElBot inherits ModoDeJuego{
-	const property bot = new Bot(position = game.at(24, 14),image = "bot1.png",areaColision = (0..0)) 
+	var property bot = new Bot(position = game.at(24, 14),image = "bot1.png",areaColision = (0..0)) 
 	
 	method activarMovimientoContinuoBot() {
 		game.onTick(bot.velocidad(), 'movimientoBot' , {
@@ -117,7 +121,8 @@ class JugarContraElBot inherits ModoDeJuego{
 		else {}
 	}
 	override method play(){
-		self.init()
+		pelota.movimientoInicio()
+		jugador1.configurarMovimiento()
 		game.removeVisual(menu)
 		self.ponerVisuales()
 		self.activarMovimientoContinuoPelota()
@@ -127,12 +132,18 @@ class JugarContraElBot inherits ModoDeJuego{
 	  	if(puntajeJugador.puntos() == 8){
 			self.borrarVisuales()
 			game.addVisual(ganar)
-			game.schedule(0,{game.stop()})
+		  self.activar()
+
 		}
 		else if(puntajeRival.puntos() == 8){
+					  self.activar()
+
 			self.borrarVisuales()
 			game.addVisual(perdiste)
-			game.schedule(0,{game.stop()})
+		
+			puntajeJugador.puntos(0)
+			gameManager.playGame()
+			//game.schedule(0,{game.stop()})
 		}
 		else{}
 	}
@@ -140,8 +151,7 @@ class JugarContraElBot inherits ModoDeJuego{
 class JugadorContraJugador inherits ModoDeJuego {
 	const property jugador2 = new Jugador2(position = game.at(24, 14),image = "bot1.png",areaColision = (0..0))
 
-	override method init() {
-	  	super()
+	 method init() {
 	  	jugador2.configurarMovimiento()
 	}
 	override method ponerVisuales() {
@@ -167,7 +177,7 @@ class JugadorContraJugador inherits ModoDeJuego {
 		self.activarMovimientoContinuoPelota()
 	}
 	override method gameOver() {
-		if(puntajeJugador.puntos() == 8){
+		if(puntajeJugador.puntos() == 3){
 			self.borrarVisuales()
 			game.addVisual(ganarJugador1)
 			game.schedule(0,{game.stop()})
