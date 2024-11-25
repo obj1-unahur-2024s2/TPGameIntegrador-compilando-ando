@@ -17,19 +17,21 @@ object menu{
 	method position() = game.at(4,5);
 	//CONFIGURA LAS TECLAS DEL MENÚ
 	method iniciar() {	  
-			
 			keyboard.c().onPressDo({
+				if(not singlePlayer.estaActivo() and not multiPlayer.estaActivo()){
 								singlePlayer = new JugarContraElBot()
 					singlePlayer.activar()
 					singlePlayer.play()
+				}
 				
 			})
 			
-		keyboard.x().onPressDo({
+		keyboard.x().onPressDo({if(not singlePlayer.estaActivo() and not multiPlayer.estaActivo()){
 			
 				multiPlayer = new JugadorContraJugador()
 				multiPlayer.activar()
 				multiPlayer.play()
+		}
 			
 		})
 	}

@@ -4,9 +4,9 @@ import gameManager.*
 
 program juego {
 	gameManager.playGame()
-	  const rain = game.sound("pong-music.mp3")
+
+	const rain = game.sound("pong-music.mp3")
   rain.shouldLoop(true)
-  keyboard.p().onPressDo({rain.pause()})
-  keyboard.r().onPressDo({rain.resume()})
-  keyboard.s().onPressDo({rain.stop()})
+  rain.play()
+
 }
