@@ -7,7 +7,7 @@ object pelota {
   const numeros = [1, -1]
   var direccionX = -1
   var direccionY = -1
-  var property pelotaVelocidad = 150 //eSTABA EN 150
+  var property pelotaVelocidad = 70 //eSTABA EN 150
   const image = "pelota1.png"
   var property position = game.at(gameManager.width_game()/2, gameManager.height_game()/2)
   method numeros() = numeros
@@ -45,7 +45,14 @@ object pelota {
     if ((position.x() == gameManager.width_game() -2) && menu.singlePlayer().bot().areaColision().contains(position.y())) {
       hitBall.play()
       direccionX = -1
-      
+    }
+//
+    if (not menu.singlePlayer().obstaculos().isEmpty() and (position.x() == (gameManager.width_game() / 2) - 1) && menu.singlePlayer().obstaculos().first().areaColision().contains(position.y())){
+      direccionX = -1
+    }
+    
+    if (not menu.singlePlayer().obstaculos().isEmpty() and (position.x() == (gameManager.width_game() / 2) + 1) && menu.singlePlayer().obstaculos().first().areaColision().contains(position.y())){
+      direccionX = 1
     }
   }
   method movementXMultiplayer() {

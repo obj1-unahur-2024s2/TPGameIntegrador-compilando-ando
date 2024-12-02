@@ -42,8 +42,39 @@ class Jugador2 inherits Raqueta{
   }
 }
 class Bot inherits Raqueta {
-  var property velocidad = 350
+  var property velocidad = 550
   override method configurarMovimiento() {
     position = (game.at(position.x(), pelota.position().y()))
   }
+}
+
+class Obstaculo inherits Raqueta {
+  var orientacion = up
+  override method configurarMovimiento() {
+    game.onTick(350, 'movimientoObstaculo', {self.desplazarse()})
+  }
+  method desplazarse() {
+    self.avanzar()
+    if(self.llego())
+       self.girar()
+  }
+  method avanzar() {
+    position = orientacion.adelante(position)
+    self.area()
+  }
+  method llego() =
+      orientacion.enElBorde(position)
+  method girar() {
+    orientacion = orientacion.opuesto()
+  }
+}
+object up{
+  method opuesto() = down
+  method adelante(position) = position.up(2)
+  method enElBorde(position) = !(20 > position.y())
+}
+object down{
+  method opuesto() = up
+  method adelante(position) = position.down(2)
+  method enElBorde(position) = position.y() <= 0
 }

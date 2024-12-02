@@ -55,6 +55,7 @@ class ModoDeJuego {
 		image = "rroja.png",
 		areaColision = 0 .. 0
 	)
+	var property obstaculos = []
 	
 	//const franjaSuperior = new Franja(position = game.at(0,gameManager.height_game()),image = "franja2.png")
 	//VARIABLE PARA ACTIVAR/DESACTIVAR LAS TECLAS DEL MENU
@@ -118,6 +119,7 @@ class ModoDeJuego {
 			{ 
 				pelota.movement()
 				self.punto()
+				self.agregarObstaculo()
 				self.gameOver()
 			}
 		)
@@ -129,6 +131,14 @@ class ModoDeJuego {
 	method play()
 	
 	method gameOver()
+
+	method agregarObstaculo() {
+	  if(obstaculos.isEmpty()){
+		obstaculos.add(new Obstaculo(position = game.at(gameManager.width_game() / 2, gameManager.height_game() / 2),image = "raqueta.png",areaColision = (0..0)))
+		game.addVisual(obstaculos.first())
+		obstaculos.first().configurarMovimiento()
+	  }
+	}
 }
 
 class JugarContraElBot inherits ModoDeJuego {
