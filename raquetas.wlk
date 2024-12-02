@@ -18,7 +18,7 @@ class Jugador inherits Raqueta {
       self.area()
     })  
 		keyboard.up().onPressDo({ 
-			if(20 > self.position().y()){
+			if(game.height()-4 > self.position().y()){
 				self.position(self.position().up(2))
       }
       self.area()
@@ -34,7 +34,7 @@ class Jugador2 inherits Raqueta{
       self.area()
     })  
 		keyboard.w().onPressDo({ 
-			if(20 > self.position().y()){
+			if(game.height() - 4> self.position().y()){
 				self.position(self.position().up(2))
       }
       self.area()

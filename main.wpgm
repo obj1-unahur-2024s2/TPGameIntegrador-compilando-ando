@@ -5,7 +5,23 @@ import gameManager.*
 
 program juego {
 	gameManager.inicializar()
-	menu.iniciar()
-	keyboard.space().onPressDo({game.stop()})
-		game.start()
+
+}
+
+object hitBall {
+	method play() {
+		game.sound("hitball.mp3").play()
+	}
+}
+
+object winSound {
+	method play() {
+		game.sound("win.mp3").play()
+	}
+}
+	
+object loseSound {
+	method play() {
+		game.sound("perder.mp3").play()
+	}
 }

@@ -1,23 +1,33 @@
+import wollok.game.*
+import gameManager.*
 import juego.*
 //MENSAJE "PERDISTE"
 object perdiste {
-  method image() = "perder.png"
-  method position() = game.at(6, 13)
+  method image() = "nadal-loose.jpg"
+	method position() = game.at(0, 0)
+}
+
+object instrucciones {
+  method image() = "instrucciones.jpg"
+	method position() = game.at(0, 0)
 }
 //MENSAJE "GANASTE"
 object ganar {
-  method image() = "ganaste1.png"
-  method position() = game.at(6, 13)
+  method image() = "nadal-win.jpg"
+	method position() = game.at(0, 0)
+  
 }
 //msj GANADOR J1
 object ganarJugador1 {
-  method image() = "ganaste3.png"
-  method position() = game.at(6, 13)  
+  method image() = "jugador-1-win.jpg"
+method position() = game.at(0, 0)
+
 }
 //msj GANADOR J2
 object ganarJugador2 {
-  method image() = "ganaste1.png"
-  method position() = game.at(6, 13) 
+  method image() = "jugador-2-win.jpg"
+  
+	method position() = game.at(0, 0)
 }
 //PUNTAJE IZQUIERDO
 object puntajeJugador {
@@ -27,7 +37,10 @@ object puntajeJugador {
     puntos = puntos + 1
   }
   method image() = puntos.toString()+".png"
-  method position() = game.at(2,26)
+  method position() = game.at(2,gameManager.height_game()-10)
+  method clean() {
+    puntos = 0
+  }
 }
 //PUNTAJE DERECHO
 object puntajeRival {
@@ -37,5 +50,8 @@ object puntajeRival {
     puntos = puntos + 1
   }
   method image() = puntos.toString()+".png"
-  method position() = game.at(19,26)
+  method position() = game.at(gameManager.width_game() -10,gameManager.height_game()-10)
+    method clean() {
+    puntos = 0
+  }
 }
