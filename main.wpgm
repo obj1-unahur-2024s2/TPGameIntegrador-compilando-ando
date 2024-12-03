@@ -3,10 +3,22 @@ import juego.*
 import gameManager.*
 
 program juego {
-	gameManager.playGame()
+  gameManager.inicializar()
+}
+object hitBall {
+    method play() {
+        game.sound("assets_hitball.mp3").play()
+    }
+}
 
-	const rain = game.sound("pong-music.mp3")
-  rain.shouldLoop(true)
-  rain.play()
+object winSound {
+    method play() {
+        game.sound("assets_win.mp3").play()
+    }
+}
 
+object loseSound {
+    method play() {
+        game.sound("perder.mp3").play()
+    }
 }

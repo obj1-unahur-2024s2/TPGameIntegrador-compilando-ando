@@ -4,46 +4,44 @@ import raquetas.*
 import franja.*
 import mensajes.*
 
-
-object menu{
-	//INSTANCIO LOS MODOS DE JUEGO
+object  menu {
 	var property singlePlayer= new JugarContraElBot()
 	var property multiPlayer = new JugadorContraJugador()
 	method clearGame() {
 		game.allVisuals().forEach({ visual => game.removeVisual(visual) })
 	}
-	
 	method image() = "juego_menu1.png"
 	method position() = game.at(4,5);
-	//CONFIGURA LAS TECLAS DEL MENÚ
+	method clean()
+    {
+        singlePlayer= new JugarContraElBot()
+        multiPlayer = new JugadorContraJugador()
+    }
+		
 	method iniciar() {	  
 			keyboard.c().onPressDo({
 				if(not singlePlayer.estaActivo() and not multiPlayer.estaActivo()){
-								singlePlayer = new JugarContraElBot()
 					singlePlayer.activar()
 					singlePlayer.play()
 				}
-				
 			})
-			
 		keyboard.x().onPressDo({if(not singlePlayer.estaActivo() and not multiPlayer.estaActivo()){
-			
-				multiPlayer = new JugadorContraJugador()
 				multiPlayer.activar()
 				multiPlayer.play()
 		}
 			
 		})
+		
 	}
 }
 class ModoDeJuego {
 	//JUGADOR PRINCIPAL
-	const property jugador1 = new Jugador(position = game.at(0, 14),image = "raqueta1.png",areaColision = (0..0))
+	var property jugador1 = new Jugador(position = game.at(0, 14),image = "raqueta1.png",areaColision = (0..0))
 	//FRANJAS
-  	const franjaCentral = new Franja(position = game.at(25.div(2),-5),image = "franja.png")
-  	const franjaSuperior = new Franja(position = game.at(0,24.5),image = "franja2.png")
+  	var franjaCentral = new Franja(position = game.at(25.div(2),-5),image = "franja.png")
+  	var franjaSuperior = new Franja(position = game.at(0,24.5),image = "franja2.png")
 	//OBSTACULOS
-	const property obstaculos = []
+	var property obstaculos = []
 	//VARIABLE PARA ACTIVAR/DESACTIVAR LAS TECLAS DEL MENU
 	var estaActivo = false 
   	method estaActivo() = estaActivo
@@ -68,9 +66,11 @@ class ModoDeJuego {
 	}
 	//ACTIVA EL MOVIMIENTO DE LA PELOTA Y PREGUNTA SI HAY PUNTO Y SI GANÓ O PERDIÓ
 	method activarMovimientoContinuoPelota() {
+	
 		game.onTick(pelota.pelotaVelocidad(), 'movimientoPelota', {
 			pelota.movement()
 			self.punto()
+				
 			self.gameOver()
 			self.agregarObstaculo()
 		})
@@ -108,6 +108,7 @@ class JugarContraElBot inherits ModoDeJuego{
 	}
 	override method ponerVisuales() {
 	  	super()
+			puntajeJugador.puntos(0)
 	  	game.addVisual(bot)
 		game.addVisual(puntajeRival)
 	}
@@ -120,75 +121,82 @@ class JugarContraElBot inherits ModoDeJuego{
 			puntajeRival.sumarPunto()
 			game.schedule(2000, {pelota.movimientoInicio()})
 		}
-		else {}
 	}
 	override method play(){
 		pelota.movimientoInicio()
 		jugador1.configurarMovimiento()
 		game.removeVisual(menu)
 		self.ponerVisuales()
-		self.activarMovimientoContinuoPelota()
 		self.activarMovimientoContinuoBot()
+		self.activarMovimientoContinuoPelota()
+			
 	}
+	
 	override method gameOver() {
-	  	if(puntajeJugador.puntos() == 8){
-			self.borrarVisuales()
-			game.addVisual(ganar)
-		  self.activar()
-
+	  	if(puntajeJugador.puntos() == 2){
+				game.removeTickEvent("movimientopelota")
+							   
+          
+			const sonidowin = game.sound("assets_win.mp3")
+				sonidowin.play()
+				gameManager.reiniciar(ganar)
 		}
-		else if(puntajeRival.puntos() == 8){
-					  self.activar()
-
-			self.borrarVisuales()
-			game.addVisual(perdiste)
-		
-			puntajeJugador.puntos(0)
-			gameManager.playGame()
-			//game.schedule(0,{game.stop()})
+		else if(puntajeRival.puntos() == 2){
+					game.removeTickEvent("movimientopelota")
+					const sonidowin = game.sound("sad-trumpet-46384.mp3")
+					sonidowin.play()
+					gameManager.reiniciar(perdiste)
 		}
-		else{}
 	}
 }
 class JugadorContraJugador inherits ModoDeJuego {
-	const property jugador2 = new Jugador2(position = game.at(24, 14),image = "bot1.png",areaColision = (0..0))
+    const property jugador2 = new Jugador2(position = game.at(24, 14),image = "bot1.png",areaColision = (0..0))
 
-	 method init() {
-	  	jugador2.configurarMovimiento()
-	}
-	override method ponerVisuales() {
-		super()
-		game.addVisual(jugador2)
-		game.addVisual(puntajeRival)
-	}
-	override method punto() {
-	  	if(25 == pelota.position().x()){
-			puntajeJugador.sumarPunto()
-			game.schedule(2000, {pelota.movimientoInicio()})
-	  	}
-	  	else if(-1 == pelota.position().x()){
-			puntajeRival.sumarPunto()
-			game.schedule(2000, {pelota.movimientoInicio()})
-	  	}
-		else{}
-	}
-	override method play() {
-		self.init()
-		game.removeVisual(menu)
-		self.ponerVisuales()
+     method init() {
+          jugador2.configurarMovimiento()
+    }
+    override method ponerVisuales() {
+        super()
+        game.addVisual(jugador2)
+        game.addVisual(puntajeRival)
+    }
+    override method punto() {
+          if(25 == pelota.position().x()){
+            puntajeJugador.sumarPunto()
+            game.schedule(2000, {pelota.movimientoInicio()})
+          }
+          else if(-1 == pelota.position().x()){
+            puntajeRival.sumarPunto()
+            game.schedule(2000, {pelota.movimientoInicio()})
+          }
+        else{}
+    }
+    override method play() {
+        self.init()
+					pelota.movimientoInicio()
+		jugador1.configurarMovimiento()
+				jugador2.configurarMovimiento()
+
+        game.removeVisual(menu)
+        self.ponerVisuales()
 		self.activarMovimientoContinuoPelota()
-	}
-	override method gameOver() {
+    }
+    override method gameOver() {
 		if(puntajeJugador.puntos() == 3){
-			self.borrarVisuales()
-			game.addVisual(ganarJugador1)
-			game.schedule(0,{game.stop()})
+			game.removeTickEvent("movimientopelota")
+              
+					const sonidowin = game.sound("assets_win.mp3")
+				sonidowin.play()
+				gameManager.reiniciar(ganarJugador1)
 		}
 	  	else if(puntajeRival.puntos() == 8){
-	  		self.borrarVisuales()
-			game.addVisual(ganarJugador2)
-			game.schedule(0,{game.stop()})
+	  		game.removeTickEvent("movimientopelota")
+
+					const sonidowin = game.sound("assets_win.mp3")
+				sonidowin.play()
+				gameManager.reiniciar(ganarJugador2)
+		
+              
 		}
-		else{}
-	}
+		}
 }

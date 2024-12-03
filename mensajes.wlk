@@ -1,23 +1,24 @@
 import juego.*
 //MENSAJE "PERDISTE"
 object perdiste {
-  method image() = "perder.png"
-  method position() = game.at(6, 13)
+  method image() = "perder.jpg"
+  method position() = game.at(0,0)
 }
 //MENSAJE "GANASTE"
 object ganar {
-  method image() = "ganaste1.png"
-  method position() = game.at(6, 13)
+  method image() = "ganar.jpg"
+  method position() = game.at(0,0)
 }
 //msj GANADOR J1
 object ganarJugador1 {
-  method image() = "ganaste3.png"
-  method position() = game.at(0, 13)  
+  method image() = "jugador-1-win.jpg"
+  method position() = game.at(0, 0)  
 }
 //msj GANADOR J2
 object ganarJugador2 {
-  method image() = "ganaste2.png"
-  method position() = game.at(5, 13) 
+  method image() = "jugador-2-win.jpg"
+  method position() = game.at(0, 0)  
+  
 }
 //PUNTAJE IZQUIERDO
 object puntajeJugador {
@@ -30,6 +31,9 @@ object puntajeJugador {
   method sumarPunto() {
     puntos = puntos + 1
   }
+  method clean() {
+    puntos = 0
+  }
   method image() = puntos.toString()+".png"
   method position() = game.at(2,26)
 }
@@ -40,6 +44,14 @@ object puntajeRival {
   method sumarPunto() {
     puntos = puntos + 1
   }
+  method clean() {
+    puntos = 0
+  }
   method image() = puntos.toString()+".png"
   method position() = game.at(19,26)
+}
+
+object instrucciones {
+  method image() = "INTRUCCIONES.png"
+    method position() = game.at(0, 0)
 }

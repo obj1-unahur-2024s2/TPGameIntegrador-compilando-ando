@@ -1,7 +1,7 @@
+import main.*
 import franja.*
 import raquetas.*
 import juego.*
-
 object pelota {
   const numeros = [1, -1]
   var direccionX = -1
@@ -19,10 +19,18 @@ object pelota {
     direccionX = numeros.anyOne()
     direccionY = numeros.anyOne()
   }
+  method frenar() {
+    self.pelotaVelocidad(1000000)
+  }
+  method arrancar(){
+    self.pelotaVelocidad(110)
+  }
   
   method movement() {
+  
     self.position(position.up(direccionY).right(direccionX))
     self.movementY()
+   
     if(menu.singlePlayer().estaActivo()){
       self.movementX()
     }
@@ -35,46 +43,46 @@ object pelota {
       direccionY *= -1
     }
   }
-  
+
   method movementX() {
     //REBOTE RAQUETAS
     if ((position.x() == 1) && menu.singlePlayer().jugador1().areaColision().contains(position.y())) {
+      main.hitBall.play()
       direccionX = 1
     }
     if ((position.x() == 23) && menu.singlePlayer().bot().areaColision().contains(position.y())) {
+       main.hitBall.play()
       direccionX = -1
     }
     //REBOTE OBSTACULO
     if (not menu.singlePlayer().obstaculos().isEmpty() and (position.x() == 10) && menu.singlePlayer().obstaculos().first().areaColision().contains(position.y())){
+       main.hitBall.play()
       direccionX = -1
     }
     
     if (not menu.singlePlayer().obstaculos().isEmpty() and (position.x() == 12) && menu.singlePlayer().obstaculos().first().areaColision().contains(position.y())){
+       main.hitBall.play()
       direccionX = 1
     }
-    /*
-    if (not menu.singlePlayer().obstaculos().isEmpty() and (position.x() == 9 || position.x() == 12) && menu.singlePlayer().obstaculos().any({c => c.areaColision().contains(position.y())})){
-      direccionX = -1
-    }
-    if (not menu.singlePlayer().obstaculos().isEmpty() and (position.x() == 11 || position.x() == 14) && menu.singlePlayer().obstaculos().any({c => c.areaColision().contains(position.y())})){
-      direccionX = 1
-    }
-    */
-    
+   
   }
   method movementXMultiplayer() {
     //REBOTE RAQUETAS
     if ((position.x() == 1) && menu.multiPlayer().jugador1().areaColision().contains(position.y())) {
+       main.hitBall.play()
       direccionX = 1
     }
     if ((position.x() == 23) && menu.multiPlayer().jugador2().areaColision().contains(position.y())) {
       direccionX = -1
+       main.hitBall.play()
     }
     //REBOTE OBSTACULO
     if (not menu.multiPlayer().obstaculos().isEmpty() and (position.x() == 10) && menu.multiPlayer().obstaculos().first().areaColision().contains(position.y())){
+       main.hitBall.play()
       direccionX = -1
     }
     if (not menu.multiPlayer().obstaculos().isEmpty() and (position.x() == 12) && menu.multiPlayer().obstaculos().first().areaColision().contains(position.y())){
+       main.hitBall.play()
       direccionX = 1
     }
   }
