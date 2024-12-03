@@ -133,7 +133,7 @@ class JugarContraElBot inherits ModoDeJuego{
 	}
 	
 	override method gameOver() {
-	  	if(puntajeJugador.puntos() == 2){
+	  	if(puntajeJugador.puntos() == 8){
 				game.removeTickEvent("movimientopelota")
 							   
           
@@ -141,7 +141,7 @@ class JugarContraElBot inherits ModoDeJuego{
 				sonidowin.play()
 				gameManager.reiniciar(ganar)
 		}
-		else if(puntajeRival.puntos() == 2){
+		else if(puntajeRival.puntos() == 8){
 					game.removeTickEvent("movimientopelota")
 					const sonidowin = game.sound("sad-trumpet-46384.mp3")
 					sonidowin.play()
@@ -182,7 +182,7 @@ class JugadorContraJugador inherits ModoDeJuego {
 		self.activarMovimientoContinuoPelota()
     }
     override method gameOver() {
-		if(puntajeJugador.puntos() == 3){
+		if(puntajeJugador.puntos() == 8){
 			game.removeTickEvent("movimientopelota")
               
 					const sonidowin = game.sound("assets_win.mp3")

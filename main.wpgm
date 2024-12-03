@@ -10,13 +10,11 @@ object hitBall {
         game.sound("assets_hitball.mp3").play()
     }
 }
-
 object winSound {
     method play() {
         game.sound("assets_win.mp3").play()
     }
 }
-
 object loseSound {
     method play() {
         game.sound("perder.mp3").play()

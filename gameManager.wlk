@@ -13,12 +13,12 @@ object gameManager {
     game.title("Tenis")
     const rain = game.sound("assets_menu.wav")
     rain.shouldLoop(true)
-
+    
     game.schedule(7000, {rain.play()})
     game.start()
     rain.volume(0.2)
     self.playMenu()
-   
+
   }
   method playMenu(){
     game.addVisual(instrucciones)
