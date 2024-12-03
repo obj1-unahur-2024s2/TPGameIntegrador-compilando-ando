@@ -50,7 +50,7 @@ object puntajeRival {
   method image() = puntos.toString()+".png"
   method position() = game.at(19,26)
 }
-
+//IMAGEN DE INSTRUCCIONES
 object instrucciones {
   method image() = "INTRUCCIONES.png"
     method position() = game.at(0, 0)

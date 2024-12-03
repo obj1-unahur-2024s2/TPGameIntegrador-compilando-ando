@@ -80,13 +80,6 @@ class ModoDeJuego {
 		obstaculos.add(new Obstaculo(position = game.at(11, 0),image = "raqueta.png",areaColision = (0..0)))
 		game.addVisual(obstaculos.first())
 		obstaculos.first().configurarMovimiento()
-		/*
-	  if(puntajeJugador.puntos() + puntajeRival.puntos() > 4 and obstaculos.isEmpty()){
-		obstaculos.addAll([new Obstaculo(position = game.at(10, 0),image = "raqueta.png",areaColision = (0..0)),new Obstaculo(position = game.at(13, 19),image = "raqueta.png",areaColision = (0..0))])
-		game.addVisual(obstaculos.first())
-		game.addVisual(obstaculos.last())
-		obstaculos.forEach({c => c.configurarMovimiento()})
-		*/
 	  }
 	}
 
